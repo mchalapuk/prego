@@ -57,6 +57,21 @@ func TestCheckFalseReturnsErrWhenPassingTrue(t *testing.T) {
 type Test struct {
 }
 
+func TestCheckNilReturnsNilWhenPassingNil(t *testing.T) {
+  err := CheckNil(nil, irrelevant)
+  if err != nil {
+    t.Errorf("Expected CheckNil(%+v) to return nil, got %+v", nil, err);
+  }
+}
+
+func TestCheckNilReturnsErrWhenPassingNotNil(t *testing.T) {
+  value := &Test{}
+  err := CheckNil(value, irrelevant)
+  if err == nil {
+    t.Errorf("Expected CheckNotNil(%+v) to return error, got nil", value);
+  }
+}
+
 func TestCheckNotNilReturnsNilWhenPassingNotNil(t *testing.T) {
   value := &Test{}
   err := CheckNotNil(value, irrelevant)

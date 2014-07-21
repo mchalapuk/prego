@@ -38,6 +38,13 @@ func CheckFalse(antiPredicate bool, message string, args ...interface{}) error {
 }
 
 /*
+  Returns nil if given value is nil, otherwise returns error
+*/
+func CheckNil(value interface{}, message string, args ...interface{}) error {
+  return CheckTrue(value == nil, message, args)
+}
+
+/*
   Returns nil if given value is not nil, otherwise returns error
 */
 func CheckNotNil(value interface{}, message string, args ...interface{}) error {
