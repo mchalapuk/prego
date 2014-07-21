@@ -20,27 +20,44 @@ package precond
 
 import "fmt"
 
-func CheckTrue(predicate bool,  message string, args ...interface{}) error {
+/*
+  Returns nil if given predicate is true, otherwise returns error
+*/
+func CheckTrue(predicate bool, message string, args ...interface{}) error {
   if !predicate {
     return fmt.Errorf(message, args)
   }
   return nil
 }
 
+/*
+  Returns nil if given predicate is false, otherwise returns error
+*/
 func CheckFalse(antiPredicate bool, message string, args ...interface{}) error {
   return CheckTrue(!antiPredicate, message, args);
 }
 
+/*
+  Returns nil if given value is not nil, otherwise returns error
+*/
 func CheckNotNil(value interface{}, message string, args ...interface{}) error {
   return CheckTrue(value != nil, message, args)
 }
 
+/*
+  Returns nil if given value is contained in given range &lt;lower, upper&gt;,
+  otherwise returns error. Uses given epsilon for float comparison.
+*/
 func CheckInRangeEpsilon(value float64, lower float64, upper float64,
         epsilon float64, message string, args ...interface{}) error {
   predicate := value - lower + epsilon > 0 && upper - value + epsilon > 0
   return CheckTrue(predicate, message, args)
 }
 
+/*
+  Returns nil if given value is contained in given range &lt;lower, upper&gt;,
+  otherwise returns error. Uses epsilon value of 0.00001.
+*/
 func CheckInRange(value float64, lower float64, upper float64,
                   message string, args ...interface{}) error {
   return CheckInRangeEpsilon(value, lower, upper, .00001, message, args)
