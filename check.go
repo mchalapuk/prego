@@ -25,7 +25,7 @@ import "fmt"
 */
 func CheckTrue(predicate bool, message string, args ...interface{}) error {
   if !predicate {
-    return fmt.Errorf(message, args)
+    return fmt.Errorf(message, args...)
   }
   return nil
 }
@@ -34,21 +34,21 @@ func CheckTrue(predicate bool, message string, args ...interface{}) error {
   Returns nil if given predicate is false, otherwise returns error
 */
 func CheckFalse(antiPredicate bool, message string, args ...interface{}) error {
-  return CheckTrue(!antiPredicate, message, args);
+  return CheckTrue(!antiPredicate, message, args...);
 }
 
 /*
   Returns nil if given value is nil, otherwise returns error
 */
 func CheckNil(value interface{}, message string, args ...interface{}) error {
-  return CheckTrue(value == nil, message, args)
+  return CheckTrue(value == nil, message, args...)
 }
 
 /*
   Returns nil if given value is not nil, otherwise returns error
 */
 func CheckNotNil(value interface{}, message string, args ...interface{}) error {
-  return CheckTrue(value != nil, message, args)
+  return CheckTrue(value != nil, message, args...)
 }
 
 /*
@@ -58,7 +58,7 @@ func CheckNotNil(value interface{}, message string, args ...interface{}) error {
 func CheckInRangeEpsilon(value float64, lower float64, upper float64,
         epsilon float64, message string, args ...interface{}) error {
   predicate := value - lower + epsilon > 0 && upper - value + epsilon > 0
-  return CheckTrue(predicate, message, args)
+  return CheckTrue(predicate, message, args...)
 }
 
 /*
@@ -67,6 +67,6 @@ func CheckInRangeEpsilon(value float64, lower float64, upper float64,
 */
 func CheckInRange(value float64, lower float64, upper float64,
                   message string, args ...interface{}) error {
-  return CheckInRangeEpsilon(value, lower, upper, .00001, message, args)
+  return CheckInRangeEpsilon(value, lower, upper, .00001, message, args...)
 }
 
