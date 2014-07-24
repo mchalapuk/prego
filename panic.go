@@ -67,7 +67,7 @@ func InRangeEpsilon(value float64, lower float64, upper float64,
 
 /*
   Throws if given value is not contained in given range &lt;lower, upper&gt;.
-  Uses epsilon value of 0.00001i forfloat comparison.
+  Uses epsilon value of 0.00001 for float comparison.
 */
 func InRange(value float64, lower float64, upper float64,
              message string, args ...interface{}) {

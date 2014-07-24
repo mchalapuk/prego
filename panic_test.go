@@ -88,7 +88,7 @@ func TestPrecondNilPanicsWhenPassingNotNil(t *testing.T) {
 func TestPrecondNotNilDoesNotPanicWhenPassingNotNil(t *testing.T) {
   value := &Test{}
   checkStr := fmt.Sprintf("precond.NotNil(%v)", value)
-  expectSerenity(t, checkStr, func() { Nil(value, irrelevant) })
+  expectSerenity(t, checkStr, func() { NotNil(value, irrelevant) })
 }
 
 func TestPrecondNotNilPanicWhenPassingNil(t *testing.T) {
