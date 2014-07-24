@@ -16,14 +16,14 @@
 
 // vim: sw=2 ts=2 expandtab
 
-package precond
+package check
 
 import "fmt"
 
 /*
   Returns nil if given predicate is true, otherwise returns error
 */
-func CheckTrue(predicate bool, message string, args ...interface{}) error {
+func True(predicate bool, message string, args ...interface{}) error {
   if !predicate {
     return fmt.Errorf(message, args...)
   }
@@ -33,40 +33,40 @@ func CheckTrue(predicate bool, message string, args ...interface{}) error {
 /*
   Returns nil if given predicate is false, otherwise returns error
 */
-func CheckFalse(antiPredicate bool, message string, args ...interface{}) error {
-  return CheckTrue(!antiPredicate, message, args...);
+func False(antiPredicate bool, message string, args ...interface{}) error {
+  return True(!antiPredicate, message, args...);
 }
 
 /*
   Returns nil if given value is nil, otherwise returns error
 */
-func CheckNil(value interface{}, message string, args ...interface{}) error {
-  return CheckTrue(value == nil, message, args...)
+func Nil(value interface{}, message string, args ...interface{}) error {
+  return True(value == nil, message, args...)
 }
 
 /*
   Returns nil if given value is not nil, otherwise returns error
 */
-func CheckNotNil(value interface{}, message string, args ...interface{}) error {
-  return CheckTrue(value != nil, message, args...)
+func NotNil(value interface{}, message string, args ...interface{}) error {
+  return True(value != nil, message, args...)
 }
 
 /*
   Returns nil if given value is contained in given range &lt;lower, upper&gt;,
   otherwise returns error. Uses given epsilon for float comparison.
 */
-func CheckInRangeEpsilon(value float64, lower float64, upper float64,
+func InRangeEpsilon(value float64, lower float64, upper float64,
         epsilon float64, message string, args ...interface{}) error {
   predicate := value - lower + epsilon > 0 && upper - value + epsilon > 0
-  return CheckTrue(predicate, message, args...)
+  return True(predicate, message, args...)
 }
 
 /*
   Returns nil if given value is contained in given range &lt;lower, upper&gt;,
   otherwise returns error. Uses epsilon value of 0.00001.
 */
-func CheckInRange(value float64, lower float64, upper float64,
-                  message string, args ...interface{}) error {
-  return CheckInRangeEpsilon(value, lower, upper, .00001, message, args...)
+func InRange(value float64, lower float64, upper float64,
+             message string, args ...interface{}) error {
+  return InRangeEpsilon(value, lower, upper, .00001, message, args...)
 }
 

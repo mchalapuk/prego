@@ -18,6 +18,8 @@
 
 package precond
 
+import "./check"
+
 func panicIfError(check func() error) {
   if err := check(); err != nil {
     panic(err)
@@ -28,7 +30,7 @@ func panicIfError(check func() error) {
   Panics if given predicate is not true.
 */
 func True(predicate bool, message string, args ...interface{}) {
-  panicIfError(func() error { return CheckTrue(predicate, message, args...) })
+  panicIfError(func() error { return check.True(predicate, message, args...) })
 }
 
 /*
@@ -36,7 +38,7 @@ func True(predicate bool, message string, args ...interface{}) {
 */
 func False(antiPredicate bool, message string, args ...interface{}) {
   panicIfError(func() error {
-      return CheckFalse(antiPredicate, message, args...)
+      return check.False(antiPredicate, message, args...)
       })
 }
 
@@ -44,14 +46,14 @@ func False(antiPredicate bool, message string, args ...interface{}) {
   Panics if given value is not nil.
 */
 func Nil(value interface{}, message string, args ...interface{}) {
-  panicIfError(func() error { return CheckNil(value, message, args...) })
+  panicIfError(func() error { return check.Nil(value, message, args...) })
 }
 
 /*
   Panics if given value is nil.
 */
 func NotNil(value interface{}, message string, args ...interface{}) {
-  panicIfError(func() error { return CheckNotNil(value, message, args...) })
+  panicIfError(func() error { return check.NotNil(value, message, args...) })
 }
 
 /*
@@ -61,7 +63,7 @@ func NotNil(value interface{}, message string, args ...interface{}) {
 func InRangeEpsilon(value float64, lower float64, upper float64,
         epsilon float64, message string, args ...interface{}) {
   panicIfError(func() error {
-      return CheckInRangeEpsilon(value, lower, upper, epsilon, message, args...)
+      return check.InRangeEpsilon(value,lower,upper,epsilon,message,args...)
       })
 }
 
@@ -72,7 +74,7 @@ func InRangeEpsilon(value float64, lower float64, upper float64,
 func InRange(value float64, lower float64, upper float64,
              message string, args ...interface{}) {
   panicIfError(func() error {
-      return CheckInRange(value, lower, upper, message, args...)
+      return check.InRange(value, lower, upper, message, args...)
       })
 }
 

@@ -16,7 +16,7 @@
 
 // vim: sw=2 ts=2 expandtab
 
-package precond
+package check
 
 import "testing"
 import "fmt"
@@ -26,68 +26,68 @@ const (
   irrelevant = "irrelevant in this test"
 )
 
-func TestCheckTrueReturnsNilWhenPassingTrue(t *testing.T) {
-  err := CheckTrue(true, irrelevant)
+func TestTrueReturnsNilWhenPassingTrue(t *testing.T) {
+  err := True(true, irrelevant)
   if err != nil {
-    t.Errorf("Expected CheckTrue(%+v) to return nil,got %+v", true, err);
+    t.Errorf("Expected True(%+v) to return nil,got %+v", true, err);
   }
 }
 
-func TestCheckTrueReturnsErrWhenPassingFalse(t *testing.T) {
-  err := CheckTrue(false, irrelevant)
+func TestTrueReturnsErrWhenPassingFalse(t *testing.T) {
+  err := True(false, irrelevant)
   if err == nil {
-    t.Errorf("Expected CheckTrue(%+v) to return error, got nil", false);
+    t.Errorf("Expected True(%+v) to return error, got nil", false);
   }
 }
 
-func TestCheckFlaseReturnsNilWhenPassingFalse(t *testing.T) {
-  err := CheckFalse(false, irrelevant)
+func TestFlaseReturnsNilWhenPassingFalse(t *testing.T) {
+  err := False(false, irrelevant)
   if err != nil {
-    t.Errorf("Expected CheckFalse(%+v) to return nil,got %+v", false, err);
+    t.Errorf("Expected False(%+v) to return nil,got %+v", false, err);
   }
 }
 
-func TestCheckFalseReturnsErrWhenPassingTrue(t *testing.T) {
-  err := CheckFalse(true, irrelevant)
+func TestFalseReturnsErrWhenPassingTrue(t *testing.T) {
+  err := False(true, irrelevant)
   if err == nil {
-    t.Errorf("Expected CheckFalse(%+v) to return error, got nil", false);
+    t.Errorf("Expected False(%+v) to return error, got nil", false);
   }
 }
 
 type Test struct {
 }
 
-func TestCheckNilReturnsNilWhenPassingNil(t *testing.T) {
-  err := CheckNil(nil, irrelevant)
+func TestNilReturnsNilWhenPassingNil(t *testing.T) {
+  err := Nil(nil, irrelevant)
   if err != nil {
-    t.Errorf("Expected CheckNil(%+v) to return nil, got %+v", nil, err);
+    t.Errorf("Expected Nil(%+v) to return nil, got %+v", nil, err);
   }
 }
 
-func TestCheckNilReturnsErrWhenPassingNotNil(t *testing.T) {
+func TestNilReturnsErrWhenPassingNotNil(t *testing.T) {
   value := &Test{}
-  err := CheckNil(value, irrelevant)
+  err := Nil(value, irrelevant)
   if err == nil {
-    t.Errorf("Expected CheckNotNil(%+v) to return error, got nil", value);
+    t.Errorf("Expected NotNil(%+v) to return error, got nil", value);
   }
 }
 
-func TestCheckNotNilReturnsNilWhenPassingNotNil(t *testing.T) {
+func TestNotNilReturnsNilWhenPassingNotNil(t *testing.T) {
   value := &Test{}
-  err := CheckNotNil(value, irrelevant)
+  err := NotNil(value, irrelevant)
   if err != nil {
-    t.Errorf("Expected CheckNotNil(%+v) to return nil, got %+v", value, err);
+    t.Errorf("Expected NotNil(%+v) to return nil, got %+v", value, err);
   }
 }
 
-func TestCheckNotNilReturnsErrWhenPassingNil(t *testing.T) {
-  err := CheckNotNil(nil, irrelevant)
+func TestNotNilReturnsErrWhenPassingNil(t *testing.T) {
+  err := NotNil(nil, irrelevant)
   if err == nil {
-    t.Errorf("Expected CheckNotNil(%+v) to return error, got nil", nil);
+    t.Errorf("Expected NotNil(%+v) to return error, got nil", nil);
   }
 }
 
-func TestCheckInRangeEpsilonReturnsNilWhenPassingValueInRange(t *testing.T) {
+func TestInRangeEpsilonReturnsNilWhenPassingValueInRange(t *testing.T) {
   tests := [][]float64 {
     []float64 {0, 0, 0 ,.1},
     []float64 {0, 0, 0 ,.0000001},
@@ -101,15 +101,15 @@ func TestCheckInRangeEpsilonReturnsNilWhenPassingValueInRange(t *testing.T) {
   }
   for _, test := range(tests) {
     value, upper, lower, epsilon := test[0], test[1], test[2], test[3]
-    err := CheckInRangeEpsilon(value, upper, lower, epsilon, irrelevant)
+    err := InRangeEpsilon(value, upper, lower, epsilon, irrelevant)
     if err != nil {
-      t.Errorf("Expected CheckInRangeEpsilon(%v, %v, %v, %v) to return nil, got %+v",
+      t.Errorf("Expected InRangeEpsilon(%v, %v, %v, %v) to return nil, got %+v",
                value, upper, lower, epsilon, err);
     }
   }
 }
 
-func TestCheckInRangeEpsilonReturnsErrWhenPassingValueOutOfRange(t *testing.T) {
+func TestInRangeEpsilonReturnsErrWhenPassingValueOutOfRange(t *testing.T) {
   tests := [][]float64 {
     []float64 {1, 0, 0 ,.1},
     []float64 {-.1, 0, 1 ,.05},
@@ -119,15 +119,15 @@ func TestCheckInRangeEpsilonReturnsErrWhenPassingValueOutOfRange(t *testing.T) {
   }
   for _, test := range(tests) {
     value, upper, lower, epsilon := test[0], test[1], test[2], test[3]
-    err := CheckInRangeEpsilon(value, upper, lower, epsilon, irrelevant)
+    err := InRangeEpsilon(value, upper, lower, epsilon, irrelevant)
     if err == nil {
-      t.Errorf("Expected CheckInRangeEpsilon(%v, %v, %v, %v) to return error, got nil",
+      t.Errorf("Expected InRangeEpsilon(%v, %v, %v, %v) to return error, got nil",
                value, upper, lower, epsilon);
     }
   }
 }
 
-func TestCheckInRangeReturnsNilWhenPassingValueInRange(t *testing.T) {
+func TestInRangeReturnsNilWhenPassingValueInRange(t *testing.T) {
   tests := [][]float64 {
     []float64 {0, 0, 0},
     []float64 {0, 0, 1},
@@ -140,15 +140,15 @@ func TestCheckInRangeReturnsNilWhenPassingValueInRange(t *testing.T) {
   }
   for _, test := range(tests) {
     value, upper, lower := test[0], test[1], test[2]
-    err := CheckInRange(value, upper, lower, irrelevant)
+    err := InRange(value, upper, lower, irrelevant)
     if err != nil {
-      t.Errorf("Expected CheckInRange(%v, %v, %v) to return nil, got %+v",
+      t.Errorf("Expected InRange(%v, %v, %v) to return nil, got %+v",
                value, upper, lower, err);
     }
   }
 }
 
-func TestCheckInRangeReturnsErrWhenPassingValueOutOfRange(t *testing.T) {
+func TestInRangeReturnsErrWhenPassingValueOutOfRange(t *testing.T) {
   tests := [][]float64 {
     []float64 {1, 0, 0},
     []float64 {-.1, 0, 1},
@@ -158,45 +158,45 @@ func TestCheckInRangeReturnsErrWhenPassingValueOutOfRange(t *testing.T) {
   }
   for _, test := range(tests) {
     value, upper, lower := test[0], test[1], test[2]
-    err := CheckInRange(value, upper, lower, irrelevant)
+    err := InRange(value, upper, lower, irrelevant)
     if err == nil {
-      t.Errorf("Expected CheckInRange(%v, %v, %v) to return error, got nil",
+      t.Errorf("Expected InRange(%v, %v, %v) to return error, got nil",
                value, upper, lower);
     }
   }
 }
 
-func TestCheckTrueReturnsErrWithProperMessage(t *testing.T) {
+func TestTrueReturnsErrWithProperMessage(t *testing.T) {
   expected := "message"
-  err := CheckTrue(false, expected)
+  err := True(false, expected)
   actual := fmt.Sprintf("%s", err)
   if strings.Index(actual, expected) != 0 {
-    t.Errorf("Expected CheckTrue(%+v) to return error with message '%v', got '%v'",
+    t.Errorf("Expected True(%+v) to return error with message '%v', got '%v'",
             false, "message", actual)
   }
 }
 
-func TestCheckTrueReturnsErrWithProperMessageWithOneArgument(t *testing.T) {
+func TestTrueReturnsErrWithProperMessageWithOneArgument(t *testing.T) {
   message := "message %v"
   argument := 12
   expected := fmt.Sprintf(message, argument)
-  err := CheckTrue(false, expected, message, argument)
+  err := True(false, expected, message, argument)
   actual := fmt.Sprintf("%s", err)
   if strings.Index(actual, expected) != 0 {
-    t.Errorf("Expected CheckTrue(%+v) to return error with message '%v', got '%v'",
+    t.Errorf("Expected True(%+v) to return error with message '%v', got '%v'",
             false, "message", actual)
   }
 }
 
-func TestCheckTrueReturnsErrWithProperMessageWithTwoArguments(t *testing.T) {
+func TestTrueReturnsErrWithProperMessageWithTwoArguments(t *testing.T) {
   message := "message %v - %v"
   argument0 := 12
   argument1 := 122
   expected := fmt.Sprintf(message, argument0, argument1)
-  err := CheckTrue(false, expected, message, argument0, argument1)
+  err := True(false, expected, message, argument0, argument1)
   actual := fmt.Sprintf("%s", err)
   if strings.Index(actual, expected) != 0 {
-    t.Errorf("Expected CheckTrue(%+v) to return error with message '%v', got '%v'",
+    t.Errorf("Expected True(%+v) to return error with message '%v', got '%v'",
             false, "message", actual)
   }
 }

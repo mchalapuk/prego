@@ -22,6 +22,10 @@ import "testing"
 import "fmt"
 import "strings"
 
+const (
+  irrelevant = "irrelevant in this test"
+)
+
 func expectSerenity(t *testing.T, precondCheckStr string, test func()) {
   defer func() {
     if err := recover(); err != nil {
@@ -77,6 +81,9 @@ func TestPrecondFalsePanicsWhenPassingTrue(t *testing.T) {
 
 func TestPrecondNilDoenNotPanicWhenPassingNil(t *testing.T) {
   expectSerenity(t, "precond.Nil(nil)", func() { Nil(nil, irrelevant) })
+}
+
+type Test struct {
 }
 
 func TestPrecondNilPanicsWhenPassingNotNil(t *testing.T) {
