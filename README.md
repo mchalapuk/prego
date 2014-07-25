@@ -52,8 +52,32 @@ func (set *Set) get(index int) interface{} {
 }
 ```
 
-Other checks can be found in
+Other panic checks can be found in
 [panic.go](https://github.com/gosmos/precond/blob/master/panic.go).
+
+Package *precond/check* contain function that does the same checks,
+but return encountered errors instead of panic. They will come in handy
+when writing code that uses technique called [Defensive
+Programming](http://en.wikipedia.org/wiki/Defensive_programming).
+
+```go
+import "github.com/gosmos/precond/check"
+
+func handleMessage(msg string) string {
+  // if isProerFormat(msg) is false, check.True will return error
+  // with message passed as second argument
+  err := check.True(isProperFormat(msg), "ill-formated message: %v", message)
+  if err != nil {
+    log.Error(err);
+    return;
+  }
+
+  ...
+}
+```
+
+Other error checks can be found in
+[panic.go](https://github.com/gosmos/precond/blob/master/check/check.go).
 
 Contradicting Official Documentation
 ------------------------------------
@@ -64,9 +88,9 @@ of Go language, it is suggested that
 This library contradicts that guideline.
 
 Avoiding panic and trying to silently ignore errors is a form of
-[Defensive Programming](http://en.wikipedia.org/wiki/Defensive_programming),
-which is a fine technique, that should be used when dealing with unpredictable
-inputs. As not all programs deal with such situations and certainly not all
+*Defensive Programming* which is a fine technique, that should be used
+when dealing with unpredictable inputs.
+As not all programs deal with such situations and certainly not all
 parts of the program handle unpredictable input, usage of defensive
 programming should be limited.
 
