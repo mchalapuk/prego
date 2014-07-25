@@ -8,7 +8,8 @@ by Contract](http://en.wikipedia.org/wiki/Contract_programming).
 If preconditions of a function are not satisfied then, according
 to [Crash Early Principle](http://pragmatictips.com/32), program
 is invalid and should be immediately terminated. Termination should
-be preceeded with proper error message.
+be preceeded with proper error message. Precond simplifies doing
+these 2 tasks to one method call.
 
 Fetch gosmos/precond library to your go workspace!
 
