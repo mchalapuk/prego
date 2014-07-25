@@ -33,7 +33,7 @@ func trim(noBeTrimmed string) string {
   // with error passed as second argument
   precond.NotNil(toBeTrimmed, "trimmed string must not be null");
 
-  ...
+  ... // function body
 }
 ```
 
@@ -48,7 +48,7 @@ func (set *Set) get(index int) interface{} {
   // eill panic with properly formatted error
   precond.InRange(index, 0, set.Length()-1, "index %v out of bounds", index);
 
-  ...
+  ... // function body
 }
 ```
 
@@ -72,7 +72,7 @@ func handleMessage(msg string) string {
     return;
   }
 
-  ...
+  ... // function body
 }
 ```
 
