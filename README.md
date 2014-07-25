@@ -45,8 +45,8 @@ func (set *Set) get(index int) interface{} {
 }
 ```
 
-Check [panic.go](https://github.com/gosmos/precond/blob/master/panic.go)
-for other checks that are available.
+Other checks can be found in
+[panic.go](https://github.com/gosmos/precond/blob/master/panic.go).
 
 Contradicting Official Documentation
 ------------------------------------
