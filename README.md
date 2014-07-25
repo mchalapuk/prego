@@ -8,7 +8,7 @@ by Contract](http://en.wikipedia.org/wiki/Contract_programming).
 If preconditions of a function are not satisfied then, according
 to [Crash Early Principle](http://pragmatictips.com/32), program
 is invalid and should be immediately terminated. Termination should
-be preceeded with proper message that describes a bug.
+be preceeded with proper error message.
 
 How To Use It?
 --------------
