@@ -1,7 +1,7 @@
 precond
 =======
 
-A library that contains utilities for checking functions' preconditions
+A tiny library that contains utilities for checking functions' preconditions
 in [Go programming language](http://golang.org). Precondition checking
 is a concept intruduced in code design approach called [Design
 by Contract](http://en.wikipedia.org/wiki/Contract_programming).
