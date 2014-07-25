@@ -10,6 +10,12 @@ to [Crash Early Principle](http://pragmatictips.com/32), program
 is invalid and should be immediately terminated. Termination should
 be preceeded with proper error message.
 
+Fetch gosmos/precond library to your go workspace!
+
+```bash
+go get github.com/gosmos/precond
+```
+
 How To Use It
 -------------
 
