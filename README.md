@@ -61,7 +61,7 @@ Avoiding panic and trying to silently ignore errors is a form of
 which is a fine technique, that should be used when dealing with unpredictable
 inputs. As not all programs deal with such situations and certainly not all
 parts of the program handle unpredictable input, usage of defensive
-programming should be limited. <abbr title="Design by Contract">DbC</abbr>
+programming should be limited. *Design by Contract*
 and *Crash Early*, on the other hand, are proven to be very useful techniques
 that significantly reduce number of bugs. They should be used extensively
 in most of today's software.
