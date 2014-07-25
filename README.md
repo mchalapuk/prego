@@ -37,8 +37,14 @@ func trim(noBeTrimmed string) string {
 }
 ```
 
-All methods in the *precond* and *check* namespace support passing arguments
-to be used when formatting error message.
+Error Formatting
+~~~~~~~~~~~~~~~~
+
+All methods in the *precond* and *check* namespace support
+passing arguments to be used when formatting error message.
+[fmt.Errorf](http://golang.org/pkg/fmt/#Errorf) is used to create
+error instances. All [fmt formatting rules](http://golang.org/pkg/fmt/)
+apply.
 
 ```go
 import "github.com/gosmos/precond"
@@ -54,6 +60,9 @@ func (set *Set) get(index int) interface{} {
 
 Other panic checks can be found in
 [panic.go](https://github.com/gosmos/precond/blob/master/panic.go).
+
+Defensive Programing
+~~~~~~~~~~~~~~~~~~~~
 
 Package *precond/check* contain function that does the same checks,
 but return encountered errors instead of panic. They will come in handy
@@ -77,7 +86,7 @@ func handleMessage(msg string) string {
 ```
 
 Other error checks can be found in
-[panic.go](https://github.com/gosmos/precond/blob/master/check/check.go).
+[check/check.go](https://github.com/gosmos/precond/blob/master/check/check.go).
 
 Contradicting Official Documentation
 ------------------------------------
