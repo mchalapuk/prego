@@ -39,7 +39,7 @@ import "github.com/gosmos/precond"
 func (set *Set) get(index int) interface{} {
   // if index is not contained in <0, length> precond.InRange
   // eill panic with properly formatted error
-  precond.InRange(index, 0, set.Length(), "index %v out of bounds", index);
+  precond.InRange(index, 0, set.Length()-1, "index %v out of bounds", index);
 
   ...
 }
