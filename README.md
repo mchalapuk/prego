@@ -10,8 +10,8 @@ to [Crash Early Principle](http://pragmatictips.com/32), program
 is invalid and should be immediately terminated. Termination should
 be preceeded with proper error message.
 
-How To Use It?
---------------
+How To Use It
+-------------
 
 As many other languages, Go does not provide nillability information
 in its type system. Precond fills this gap by providing *precond.NotNil*
