@@ -8,7 +8,7 @@ by Contract](http://en.wikipedia.org/wiki/Contract_programming).
 If&nbsp;preconditions of a function are not satisfied then, according
 to [Crash Early Principle](http://pragmatictips.com/32), program
 is invalid and&nbsp;should be immediately terminated. Termination should
-be preceeded with proper error message. Precond simplifies doing
+be preceeded with proper error message. Precond&nbsp;simplifies doing
 these 2 tasks to one method call.
 
 Fetch gosmos/precond library to your go workspace!
@@ -89,7 +89,7 @@ Other error checks can be found in
 Contradicting Official Documentation
 ------------------------------------
 
-In "Effective Go", which is a part of official documentation
+In document titled "Effective Go", which is a part of official documentation
 of Go language, it is suggested that
 [functions should avoid panic](http://golang.org/doc/effective_go.html#panic).
 This library contradicts that guideline.
