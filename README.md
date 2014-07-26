@@ -9,7 +9,8 @@ If&nbsp;preconditions of a function are not satisfied then, according
 to [Crash Early Principle](http://pragmatictips.com/32), program
 is invalid and&nbsp;should be immediately terminated. Termination should
 be preceeded with error message. Precond simplifies doing it all
-(contract checking, printing error and crashing) to&nbsp;a single method call.
+(contract checking, printing error and crashing) to&nbsp;a single
+function call.
 
 Fetch gosmos/precond library to your go workspace!
 
