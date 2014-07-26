@@ -5,9 +5,9 @@ A tiny library that contains utilities for checking functions' preconditions
 in [Go programming language](http://golang.org). Precondition checking
 is a concept intruduced in code design approach called [Design
 by Contract](http://en.wikipedia.org/wiki/Contract_programming).
-If preconditions of a function are not satisfied then, according
+If&nbsp;preconditions of a function are not satisfied then, according
 to [Crash Early Principle](http://pragmatictips.com/32), program
-is invalid and should be immediately terminated. Termination should
+is invalid and&nbsp;should be immediately terminated. Termination should
 be preceeded with proper error message. Precond simplifies doing
 these 2 tasks to one method call.
 
@@ -63,7 +63,7 @@ Other panic checks can be found in
 ### Defensive Programing
 
 Package *precond/check* contain function that does the same checks,
-but return encountered errors instead of panic. They will come in handy
+but return encountered errors instead of&nbsp;panic. They will come in handy
 when writing code that uses technique called [Defensive
 Programming](http://en.wikipedia.org/wiki/Defensive_programming).
 
