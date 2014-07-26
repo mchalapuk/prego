@@ -31,7 +31,7 @@ import "github.com/gosmos/precond"
 func trim(noBeTrimmed string) string {
   // if toBeTrimmed is nil, precond.NotNil will panic
   // with error passed as second argument
-  precond.NotNil(toBeTrimmed, "trimmed string must not be null");
+  precond.NotNil(toBeTrimmed, "trimmed string must not be null")
 
   ... // function body
 }
@@ -51,7 +51,7 @@ import "github.com/gosmos/precond"
 func (set *Set) get(index int) interface{} {
   // if index is not contained in <0, length> precond.InRange
   // eill panic with properly formatted error
-  precond.InRange(index, 0, set.Length()-1, "index %v out of bounds", index);
+  precond.InRange(index, 0, set.Length()-1, "index %v out of bounds", index)
 
   ... // function body
 }
@@ -75,8 +75,8 @@ func handleMessage(msg string) string {
   // with message passed as second argument
   err := check.True(isProperFormat(msg), "ill-formated message: %v", message)
   if err != nil {
-    log.Error(err);
-    return;
+    log.Error(err)
+    return
   }
 
   ... // function body
