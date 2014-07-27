@@ -61,7 +61,7 @@ func (set *Set) get(index int) interface{} {
 Other panic checks can be found in
 [panic.go](https://github.com/gosmos/precond/blob/master/panic.go).
 
-### Defensive Programing
+### Defensive Programming
 
 Package *precond/check* contain function that does the same checks,
 but return encountered errors instead of&nbsp;panic. They will come in handy
