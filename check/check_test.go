@@ -14,8 +14,6 @@
    limitations under the License.
 */
 
-// vim: sw=2 ts=2 expandtab
-
 package check
 
 import "testing"
@@ -26,65 +24,70 @@ const (
   irrelevant = "irrelevant in this test"
 )
 
-func TestTrueReturnsNilWhenPassingTrue(t *testing.T) {
-  err := True(true, irrelevant)
-  if err != nil {
-    t.Errorf("Expected True(%+v) to return nil,got %+v", true, err);
+func expectError(t *testing.T, test func () error, checkCallTemplate string,
+values ...interface{}) {
+  err := test()
+  if err == nil {
+    checkCallStr := fmt.Sprintf(checkCallTemplate, values...)
+    t.Errorf("Expected %s to return error, got nil", checkCallStr)
   }
+}
+
+func expectNoError(t *testing.T, test func () error, checkCallTemplate string,
+values ...interface{}) {
+  err := test()
+  if err != nil {
+    checkCallStr := fmt.Sprintf(checkCallTemplate, values...)
+    t.Errorf("Expected %s to return nil, got %#v", checkCallStr,  err)
+  }
+}
+
+func expectMessage(t *testing.T, test func () error, expectedMessage string,
+checkCallTemplate string, values ...interface{}) {
+  err := test()
+  actualMessage := err.Error()
+  if strings.Index(actualMessage, expectedMessage) != 0 {
+    checkCallStr := fmt.Sprintf(checkCallTemplate, values...)
+    t.Errorf("Expected %s to return error with message %s, got %#v",
+    checkCallStr, expectedMessage, actualMessage)
+  }
+}
+
+func TestTrueReturnsNilWhenPassingTrue(t *testing.T) {
+  expectNoError(t, func() error { return True(true, irrelevant) }, "check.True(true)")
 }
 
 func TestTrueReturnsErrWhenPassingFalse(t *testing.T) {
-  err := True(false, irrelevant)
-  if err == nil {
-    t.Errorf("Expected True(%+v) to return error, got nil", false);
-  }
+  expectError(t, func() error { return True(false, irrelevant) }, "check.True(false)")
 }
 
 func TestFlaseReturnsNilWhenPassingFalse(t *testing.T) {
-  err := False(false, irrelevant)
-  if err != nil {
-    t.Errorf("Expected False(%+v) to return nil,got %+v", false, err);
-  }
+  expectNoError(t,func() error { return False(false,irrelevant) },"check.False(false)")
 }
 
 func TestFalseReturnsErrWhenPassingTrue(t *testing.T) {
-  err := False(true, irrelevant)
-  if err == nil {
-    t.Errorf("Expected False(%+v) to return error, got nil", false);
-  }
+  expectError(t, func() error { return False(true, irrelevant) }, "check.False(true)")
 }
 
 type Test struct {
 }
 
 func TestNilReturnsNilWhenPassingNil(t *testing.T) {
-  err := Nil(nil, irrelevant)
-  if err != nil {
-    t.Errorf("Expected Nil(%+v) to return nil, got %+v", nil, err);
-  }
+  expectNoError(t, func() error { return Nil(nil, irrelevant) }, "check.Nil(nil)")
 }
 
 func TestNilReturnsErrWhenPassingNotNil(t *testing.T) {
-  value := &Test{}
-  err := Nil(value, irrelevant)
-  if err == nil {
-    t.Errorf("Expected NotNil(%+v) to return error, got nil", value);
-  }
+  val := &Test{}
+  expectError(t, func() error { return Nil(val, irrelevant) }, "check.Nil(%#v)", val)
 }
 
 func TestNotNilReturnsNilWhenPassingNotNil(t *testing.T) {
-  value := &Test{}
-  err := NotNil(value, irrelevant)
-  if err != nil {
-    t.Errorf("Expected NotNil(%+v) to return nil, got %+v", value, err);
-  }
+  val := &Test{}
+  expectNoError(t, func() error { return NotNil(val, irrelevant) }, "check.NotNil(%#v)", val)
 }
 
 func TestNotNilReturnsErrWhenPassingNil(t *testing.T) {
-  err := NotNil(nil, irrelevant)
-  if err == nil {
-    t.Errorf("Expected NotNil(%+v) to return error, got nil", nil);
-  }
+  expectError(t, func() error { return NotNil(nil, irrelevant) }, "check.NotNil(nil)" )
 }
 
 func TestInRangeEpsilonReturnsNilWhenPassingValueInRange(t *testing.T) {
@@ -99,13 +102,11 @@ func TestInRangeEpsilonReturnsNilWhenPassingValueInRange(t *testing.T) {
     []float64 {-1000, -2000, 0, .1},
     []float64 {.1, 0, 0, .2},
   }
+  template := "check.InRangeEpsilon(%#v, %#v, %#v, %#v)"
   for _, test := range(tests) {
     value, upper, lower, epsilon := test[0], test[1], test[2], test[3]
-    err := InRangeEpsilon(value, upper, lower, epsilon, irrelevant)
-    if err != nil {
-      t.Errorf("Expected InRangeEpsilon(%v, %v, %v, %v) to return nil, got %+v",
-               value, upper, lower, epsilon, err);
-    }
+    f := func() error { return InRangeEpsilon(value, upper, lower, epsilon, irrelevant) }
+    expectNoError(t, f, template, value, upper, lower, epsilon)
   }
 }
 
@@ -117,13 +118,11 @@ func TestInRangeEpsilonReturnsErrWhenPassingValueOutOfRange(t *testing.T) {
     []float64 {-.000001, 0, 1 ,.0000005},
     []float64 {1.000001, 0, 1 ,.0000005},
   }
+  template := "check.InRangeEpsilon(%#v, %#v, %#v, %#v)"
   for _, test := range(tests) {
     value, upper, lower, epsilon := test[0], test[1], test[2], test[3]
-    err := InRangeEpsilon(value, upper, lower, epsilon, irrelevant)
-    if err == nil {
-      t.Errorf("Expected InRangeEpsilon(%v, %v, %v, %v) to return error, got nil",
-               value, upper, lower, epsilon);
-    }
+    f := func() error { return InRangeEpsilon(value, upper, lower, epsilon, irrelevant) }
+    expectError(t, f, template, value, upper, lower, epsilon)
   }
 }
 
@@ -138,13 +137,11 @@ func TestInRangeReturnsNilWhenPassingValueInRange(t *testing.T) {
     []float64 {-1000, -2000, 0},
     []float64 {.000000001, 0, 0},
   }
+  template := "check.InRange(%#v, %#v, %#v)"
   for _, test := range(tests) {
     value, upper, lower := test[0], test[1], test[2]
-    err := InRange(value, upper, lower, irrelevant)
-    if err != nil {
-      t.Errorf("Expected InRange(%v, %v, %v) to return nil, got %+v",
-               value, upper, lower, err);
-    }
+    f := func() error { return InRange(value, upper, lower, irrelevant) }
+    expectNoError(t, f, template, value, upper, lower)
   }
 }
 
@@ -156,48 +153,32 @@ func TestInRangeReturnsErrWhenPassingValueOutOfRange(t *testing.T) {
     []float64 {-.001, 0, 1},
     []float64 {1.001, 0, 1},
   }
+  template := "check.InRange(%#v, %#v, %#v)"
   for _, test := range(tests) {
     value, upper, lower := test[0], test[1], test[2]
-    err := InRange(value, upper, lower, irrelevant)
-    if err == nil {
-      t.Errorf("Expected InRange(%v, %v, %v) to return error, got nil",
-               value, upper, lower);
-    }
+    f := func() error { return InRange(value, upper, lower, irrelevant) }
+    expectError(t, f, template, value, upper, lower)
   }
 }
 
 func TestTrueReturnsErrWithProperMessage(t *testing.T) {
   expected := "message"
-  err := True(false, expected)
-  actual := fmt.Sprintf("%s", err)
-  if strings.Index(actual, expected) != 0 {
-    t.Errorf("Expected True(%+v) to return error with message '%v', got '%v'",
-            false, "message", actual)
-  }
+  f := func() error { return True(false, expected) }
+  expectMessage(t, f, expected, "True(false)")
 }
 
 func TestTrueReturnsErrWithProperMessageWithOneArgument(t *testing.T) {
-  message := "message %v"
-  argument := 12
+  message, argument := "message %v", 12
   expected := fmt.Sprintf(message, argument)
-  err := True(false, expected, message, argument)
-  actual := fmt.Sprintf("%s", err)
-  if strings.Index(actual, expected) != 0 {
-    t.Errorf("Expected True(%+v) to return error with message '%v', got '%v'",
-            false, "message", actual)
-  }
+  f := func() error { return True(false, message, argument) }
+  expectMessage(t, f, expected, "True(false)")
 }
 
 func TestTrueReturnsErrWithProperMessageWithTwoArguments(t *testing.T) {
-  message := "message %v - %v"
-  argument0 := 12
-  argument1 := 122
+  message, argument0, argument1 := "message %v - %v", 12, 122
   expected := fmt.Sprintf(message, argument0, argument1)
-  err := True(false, expected, message, argument0, argument1)
-  actual := fmt.Sprintf("%s", err)
-  if strings.Index(actual, expected) != 0 {
-    t.Errorf("Expected True(%+v) to return error with message '%v', got '%v'",
-            false, "message", actual)
-  }
+  f := func() error { return True(false, message, argument0, argument1) }
+  expectMessage(t, f, expected, "True(false)")
 }
+
 
