@@ -102,7 +102,7 @@ As not all programs deal with such situations and certainly not all
 parts of the program handle unpredictable input, usage of defensive
 programming should be limited.
 
-*Design by Contract* and *Crash Early*, on the other hand, are proven
-to be very useful techniques that significantly reduce number of bugs.
-They should be used extensively in most of today's software.
+*Crash Early*, on the other hand, is proven to be very useful technique
+that significantly reduces number of bugs.
+It should be used extensively in most of today's software.
 
