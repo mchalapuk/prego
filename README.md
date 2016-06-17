@@ -109,3 +109,4 @@ It should be used extensively in most of today's software.
 More on this issue can be found in [this article about Defensive Design](
 http://softwarephilosophy.ninja/defensive-design).
 
+ 
