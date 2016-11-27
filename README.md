@@ -1,5 +1,5 @@
-precond
-=======
+prego
+=====
 
 A tiny library that contains utilities for checking functions' preconditions
 in [Go programming language](http://golang.org). Precondition checking
@@ -12,10 +12,10 @@ be preceeded with error message. Precond simplifies doing it all
 (contract checking, printing error and crashing) to&nbsp;a single
 function call.
 
-Fetch gosmos/precond library to your go workspace!
+Fetch muroc/prego library to your go workspace!
 
 ```bash
-go get github.com/gosmos/precond
+go get github.com/muroc/prego
 ```
 
 How To Use It
@@ -27,7 +27,7 @@ function. Checking if argument is not nil is the most simple and most common
 way of using the library.
 
 ```go
-import "github.com/gosmos/precond"
+import "github.com/muroc/prego"
 
 func trim(noBeTrimmed string) string {
   // if toBeTrimmed is nil, precond.NotNil will panic
@@ -47,7 +47,7 @@ error instances. All [fmt formatting rules](http://golang.org/pkg/fmt/)
 apply.
 
 ```go
-import "github.com/gosmos/precond"
+import "github.com/muroc/prego"
 
 func (set *Set) get(index int) interface{} {
   // if index is not contained in <0, length> precond.InRange
@@ -69,7 +69,7 @@ when writing code that uses technique called [Defensive
 Programming](http://en.wikipedia.org/wiki/Defensive_programming).
 
 ```go
-import "github.com/gosmos/precond/check"
+import "github.com/muroc/prego/check"
 
 func handleMessage(msg string) string {
   // if isProerFormat(msg) is false, check.True will return error
@@ -85,7 +85,7 @@ func handleMessage(msg string) string {
 ```
 
 Other error checks can be found in
-[check/check.go](https://github.com/gosmos/precond/blob/master/check/check.go).
+[check/check.go](check/check.go).
 
 Contradicting Official Documentation
 ------------------------------------
@@ -109,4 +109,8 @@ It should be used extensively in most of today's software.
 More on this issue can be found in [this article about Defensive Design](
 http://softwarephilosophy.ninja/defensive-design).
 
- 
+License
+-------
+
+Copyright &copy; 2016 Maciej Chałapuk. Released under [Apache License 2.0](LICENSE).
+
