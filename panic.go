@@ -18,7 +18,7 @@
 
 package precond
 
-import "./check"
+import "github.com/muroc/prego/check"
 
 func panicIfError(check func() error) {
   if err := check(); err != nil {
