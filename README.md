@@ -87,28 +87,6 @@ func handleMessage(msg string) string {
 Other error checks can be found in
 [check/check.go](check/check.go).
 
-Contradicting Official Documentation
-------------------------------------
-
-In document titled "Effective Go", which is a part of official documentation
-of Go language, it is suggested that
-[functions should avoid panic](http://golang.org/doc/effective_go.html#panic).
-This library contradicts that guideline.
-
-Avoiding panic and trying to silently ignore errors is a form of
-*Defensive Programming* which is a fine technique, that should be used
-when dealing with unpredictable inputs.
-As not all programs deal with such situations and certainly not all
-parts of the program handle unpredictable input, usage of defensive
-programming should be limited.
-
-*Crash Early*, on the other hand, is proven to be very useful technique
-that significantly reduces number of bugs.
-It should be used extensively in most of today's software.
-
-More on this issue can be found in [this article about Defensive Design](
-http://softwarephilosophy.ninja/defensive-design).
-
 License
 -------
 
